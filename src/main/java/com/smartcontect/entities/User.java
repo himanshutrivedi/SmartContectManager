@@ -2,8 +2,10 @@ package com.smartcontect.entities;
 
 import jakarta.persistence.*;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @Entity
-@Table(name = "USER")
 public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -17,6 +19,9 @@ public class User {
     private String imageUrl;
     @Column(length = 500)
     private String about;
+
+@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY,mappedBy = "user")
+    private List<Contect> contects=new ArrayList<>();
 
 
     public User() {
@@ -98,5 +103,13 @@ public class User {
                 ", imageUrl='" + imageUrl + '\'' +
                 ", about='" + about + '\'' +
                 '}';
+    }
+
+    public List<Contect> getContects() {
+        return contects;
+    }
+
+    public void setContects(List<Contect> contects) {
+        this.contects = contects;
     }
 }
